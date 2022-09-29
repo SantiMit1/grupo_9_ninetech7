@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head.ejs") %> 
+    <title>Ninetech - Perfil</title>
+</head>
+<body>
+    <%- include("./partials/header.ejs") %> 
+    <main class="profile">
+        <section class="profile-pic">
+            <img src="/img/Users/<%= locals.userLogged.profilePic %> " alt="">
+        </section>
+        <section class="profile-name">
+            <p><%= `${locals.userLogged.nombre} ${locals.userLogged.apellido}` %> </p>
+            <span><%= locals.userLogged.email %> </span>
+        </section>
+        <hr>
+        <section class="profile-data">
+            <form method="POST" action="/users/profile?_method=put" enctype="multipart/form-data">
+                <label>Localidad</label>
+                <input type="text" name="localidad" class="localidad" placeholder="Localidad" value="<%= locals.oldData ? oldData.localidad : locals.userLogged.domicilio.localidad %>">
+                <% if (locals.errors && errors.localidad) { %>
+                    <span style="color: red;"><%= errors.localidad.msg %></span>
+                <% } %>
+                <label>Dirección</label>
+                <input type="text" name="direccion" placeholder="Dirección" value="<%= locals.oldData ? oldData.direccion : locals.userLogged.domicilio.direccion %>">
+                <% if (locals.errors && errors.direccion) { %>
+                    <span style="color: red;"><%= errors.direccion.msg %></span>
+                <% } %>
+                <label>Numero</label>
+                <input type="text" name="numero" placeholder="Numero" value="<%= locals.oldData ? oldData.numero : locals.userLogged.domicilio.numero %>">
+                <% if (locals.errors && errors.numero) { %>
+                    <span style="color: red;"><%= errors.numero.msg %></span>
+                <% } %>
+                <label for="profilePic" class="register-form">Imagen de perfil</label>
+                <input type="file" name="profilePic" id="profilePic" accept=".png, .jpg, .jpeg">
+                <% if (locals.errors && errors.profilePic) { %>
+                    <span style="color: red;"><%= errors.profilePic.msg %></span>
+                <% } %>
+                <input type="submit" value="Actualizar perfil" class="submit">
+            </form>
+        </section>
+    </main>
+    <script src="/js/burger.js"></script>
+    <%- include("./partials/footer.ejs") %> 
+</body>
+</html>

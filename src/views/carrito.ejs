@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head.ejs") %> 
+    <title>Carrito</title>
+</head>
+<body>
+    <%- include("./partials/header.ejs") %> 
+    <main>
+       <% if (locals.orden.length > 0) { %>
+        <h3 class="titulo"><i class="fa-solid fa-cart-shopping"></i> Productos en su carrito</h3>
+        <section class="cart-products">
+            <% orden.forEach(orden => { %>
+                <article>
+                    <div class="details">
+                        <img src="/img/Productos/<%= orden.product.image %> " alt="<%= orden.product.name %> ">
+                        <div class="product-name">
+                            <h4><a href="/productos/detalles/<%= orden.product.id %>"><%= orden.product.name %></a></h4>
+                            <form action="/productos/carrito/sacar/<%= orden.product.id %>?_method=delete" method="POST">
+                                <button type="submit"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <% if (orden.product.enOferta == 1) { %>
+                            <p>Precio: $<%= Math.floor(orden.product.price - (orden.product.price * (orden.product.discount / 100))) %> </p>
+                        <% } else { %>
+                            <p>Precio: $<%= orden.product.price %> </p>
+                        <% } %> 
+                    </div>
+                </article>
+            <% }) %>
+        </section>
+        <hr class="cart-divisor">
+        <section class="payment">
+            <form method="GET" action="#">
+                <article>
+                    <p><i class="fa-solid fa-truck"></i> Seleccione forma de envio</p>
+                    <hr>
+                    <div>
+                        <select name="shipment" id="shipment">
+                            <option value="">Seleccione el metodo de envio</option>
+                            <option value="domicilio">Envio a <%= locals.userLogged.domicilio.localidad %>, <%= locals.userLogged.domicilio.direccion %> <%= locals.userLogged.domicilio.numero %> </option>
+                            <option value="retiro">Retiro en el local<option>
+                        </select>
+                    </div>
+                </article>
+                <!-- <article>
+                    <p><i class="fa-solid fa-credit-card"></i> Seleccione forma de pago</p>
+                    <hr>
+                    <div>
+                        <select name="paymethod" id="paymethod">
+                            <option value="">Seleccione un metodo de pago</option>
+                            <option value="tarjeta">Tarjeta de credito</option>
+                            <option value="mp">Mercado pago</option>
+                            <option value="pfacil">Pago facil</option>
+                            <option value="rpago">Rapipago</option>
+                        </select>
+                    </div>
+                </article> -->
+                <article>
+                    <p><i class="fa-solid fa-dollar-sign"></i> Resumen de la compra</p>
+                    <hr>
+                    <div>
+                        <p class="total">Total: $<%= orden.map(orden => Math.floor(orden.product.price - (orden.product.price * (orden.product.discount / 100)))).reduce((acum, sum) => acum + sum) %> </p>
+                        <button type="submit"><i class="fa-solid fa-cart-shopping"></i> Finalizar compra</button>
+                    </div>
+                </article>
+            </form>
+        </section>
+       <% } else { %>
+            <h2 style="text-align: center; margin-top: 50px">NO HAY PRODUCTOS EN SU CARRITO</h2>
+        <% } %> 
+    </main>
+    <%- include("./partials/footer.ejs") %> 
+    <script src="/js/burger.js"></script>
+</body>
+</html>

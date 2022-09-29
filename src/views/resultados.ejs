@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head.ejs") %> 
+    <title>Busqueda</title>
+</head>
+<body>
+    <%- include("./partials/header.ejs") %> 
+    <main>
+        <h2 class="divisor" style="margin-top: 0;">RESULTADOS PARA "<%= busqueda %>"</h2>
+        <section class="products">
+            <% if (productos.length > 0) { %>
+                <% productos.forEach(producto => { %>
+                    <%- include("./partials/producto.ejs", {producto}) %> 
+                <% }) %>
+            <% } else { %>
+                <h2>NO SE ENCONTRARON PRODUCTOS</h2>
+            <% } %> 
+        </section>
+    </main>
+    <%- include("./partials/footer.ejs") %> 
+    <script src="/js/burger.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head.ejs") %> 
+    <title>Registrarse</title>
+</head>
+<body>
+    <header class="login">
+        <figure>
+            <a href="/"><img src="/img/logo.png" alt="logo" class="logo"></a>
+        </figure>
+        <a href="/"><i class="fa-solid fa-x close"></i></a>
+    </header>
+    <main class="login">
+        <aside class="login">
+            <figure>
+                <a href="/"><img src="/img/logo.png" alt="logo" class="logo"></a>
+            </figure>
+            <img src="/img/gpu.png" alt="gpu" class="gpu">
+        </aside>
+        <div class="login-container">
+            <div class="links">
+                <a href="login" class="login">Iniciar Sesión</a>
+                <a href="#" class="signup active">Registrarse</a>
+            </div>
+            <form action="/users/register" method="POST" enctype="multipart/form-data">
+                <div class="nombre-apellido">
+                    <input type="text" name="nombre" placeholder="Nombre" value="<%= locals.oldData ? oldData.nombre : null %>">
+                    <input type="text" name="apellido" placeholder="Apellido" value="<%= locals.oldData ? oldData.apellido : null %>">
+                </div>
+                <% if (locals.errors && errors.nombre) { %>
+                    <span style="color: red;"><%= errors.nombre.msg %> </span>
+                <% } %>
+                <% if (locals.errors && errors.apellido) { %>
+                    <span style="color: red; float: right;"><%= errors.apellido.msg %> </span>
+                <% } %>
+                <input type="email" name="email" placeholder="Correo Electronico" value="<%= locals.oldData ? oldData.email : null %>">
+                <% if (locals.errors && errors.email) { %>
+                    <span style="color: red;"><%= errors.email.msg %> </span>
+                <% } %>
+                <input type="text" name="localidad" placeholder="Localidad" value="<%= locals.oldData ? oldData.localidad : null %>">
+                <% if (locals.errors && errors.localidad) { %>
+                    <span style="color: red;"><%= errors.localidad.msg %> </span>
+                <% } %>
+                <input type="text" name="direccion" placeholder="Calle" value="<%= locals.oldData ? oldData.direccion : null %>">
+                <% if (locals.errors && errors.direccion) { %>
+                    <span style="color: red;"><%= errors.direccion.msg %> </span>
+                <% } %>
+                <input type="number" name="numero" placeholder="Numero" value="<%= locals.oldData ? oldData.numero : null %>">
+                <% if (locals.errors && errors.numero) { %>
+                    <span style="color: red;"><%= errors.numero.msg %> </span>
+                <% } %>
+                <input type="password" name="password" placeholder="Contraseña" >
+                <% if (locals.errors && errors.password) { %>
+                    <span style="color: red;"><%= errors.password.msg %> </span>
+                <% } %>
+                <input type="password" name="password2" placeholder="Repetir Contraseña" >
+                <% if (locals.errors && errors.password2) { %>
+                    <span style="color: red;"><%= errors.password2.msg %> </span>
+                <% } %>
+                <label for="profilePic" class="register-form">Imagen de perfil</label>
+                <input type="file" name="profilePic" id="profilePic"  accept=".png, .jpg, .jpeg">
+                <% if (locals.errors && errors.profilePic) { %>
+                    <span style="color: red;"><%= errors.profilePic.msg %> </span>
+                <% } %>
+                <input type="submit" value="Registrarse" class="submit">
+            </form>
+        </div>
+    </main>
+</body>
+</html>
