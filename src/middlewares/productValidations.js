@@ -2,7 +2,9 @@ const { body } = require("express-validator");
 const path = require("path");
 
 module.exports = [
-    body("name").notEmpty().withMessage("El producto debe tener un nombre"),
+    body("name").notEmpty().withMessage("El producto debe tener un nombre").bail()
+    .isLength({min: 5}).withMessage("El nombre del producto debe tener al menos 5 caracteres"),
+
     body("description").notEmpty().withMessage("La descripción del producto no puede estar vacia").bail()
     .isLength({ min: 20 }).withMessage("La descripción debe tener al menos 20 caracteres"),
 
@@ -11,7 +13,7 @@ module.exports = [
             return true;
         }
 
-        const extentions = [".png", ".jpeg", ".jpg"];
+        const extentions = [".png", ".jpeg", ".jpg", ".gif"];
         const imageExtention = path.extname(req.file.originalname);
 
         if(extentions.indexOf(imageExtention) == -1) {
