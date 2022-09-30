@@ -18,17 +18,20 @@
         <section class="profile-data">
             <form method="POST" action="/users/profile?_method=put" enctype="multipart/form-data">
                 <label>Localidad</label>
-                <input type="text" name="localidad" class="localidad" placeholder="Localidad" value="<%= locals.oldData ? oldData.localidad : locals.userLogged.domicilio.localidad %>">
+                <input id="localidad" type="text" name="localidad" class="localidad" placeholder="Localidad" value="<%= locals.oldData ? oldData.localidad : locals.userLogged.domicilio.localidad %>">
+                <span id="localidadFeedback" style="color: red;"></span>
                 <% if (locals.errors && errors.localidad) { %>
                     <span style="color: red;"><%= errors.localidad.msg %></span>
                 <% } %>
                 <label>Dirección</label>
-                <input type="text" name="direccion" placeholder="Dirección" value="<%= locals.oldData ? oldData.direccion : locals.userLogged.domicilio.direccion %>">
+                <input id="direccion" type="text" name="direccion" placeholder="Dirección" value="<%= locals.oldData ? oldData.direccion : locals.userLogged.domicilio.direccion %>">
+                <span id="direccionFeedback" style="color: red;"></span>
                 <% if (locals.errors && errors.direccion) { %>
                     <span style="color: red;"><%= errors.direccion.msg %></span>
                 <% } %>
                 <label>Numero</label>
-                <input type="text" name="numero" placeholder="Numero" value="<%= locals.oldData ? oldData.numero : locals.userLogged.domicilio.numero %>">
+                <input id="numero" type="text" name="numero" placeholder="Numero" value="<%= locals.oldData ? oldData.numero : locals.userLogged.domicilio.numero %>">
+                <span id="numeroFeedback" style="color: red;"></span>
                 <% if (locals.errors && errors.numero) { %>
                     <span style="color: red;"><%= errors.numero.msg %></span>
                 <% } %>
@@ -42,6 +45,7 @@
         </section>
     </main>
     <script src="/js/burger.js"></script>
+    <script src="/js/perfil.js"></script>
     <%- include("./partials/footer.ejs") %> 
 </body>
 </html>
