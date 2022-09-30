@@ -132,17 +132,16 @@ window.addEventListener("load", function() {
 
     //contraseña
     let campoContraseña = document.querySelector("#password")
-    let contraseñaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm
 
     function contraseñaValida() {
         let contraseñaFeedback = document.querySelector("#passwordFeedback")
-        if(!contraseñaRegex.test(campoContraseña.value)) {
-            contraseñaFeedback.innerHTML = "La contraseña debe contener ocho caracteres, una letra mayuscula, un numero y un caracter especial"
+        if(campoContraseña.value.length < 8) {
+            contraseñaFeedback.innerHTML = "La contraseña debe contener al menos 8 caracteres"
             contraseñaFeedback.classList.remove("is-valid")
             contraseñaFeedback.classList.add("is-invalid")
             return false;
         } else {
-            contraseñaFeedback.innerHTML = "La contraseña debe contener ocho caracteres, una letra mayuscula, un numero y un caracter especial"
+            contraseñaFeedback.innerHTML = "La contraseña debe contener al menos 8 caracteres"
             contraseñaFeedback.classList.remove("is-invalid")
             contraseñaFeedback.classList.add("is-valid")
             return true;
