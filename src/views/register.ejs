@@ -25,36 +25,44 @@
             </div>
             <form action="/users/register" method="POST" enctype="multipart/form-data">
                 <div class="nombre-apellido">
-                    <input type="text" name="nombre" placeholder="Nombre" value="<%= locals.oldData ? oldData.nombre : null %>">
-                    <input type="text" name="apellido" placeholder="Apellido" value="<%= locals.oldData ? oldData.apellido : null %>">
+                    <input id="nombre" type="text" name="nombre" placeholder="Nombre" value="<%= locals.oldData ? oldData.nombre : null %>">
+                    <input id="apellido" type="text" name="apellido" placeholder="Apellido" value="<%= locals.oldData ? oldData.apellido : null %>">
                 </div>
+                <span id="nombreFeedback"></span>
+                <span id="apellidoFeedback"></span>
                 <% if (locals.errors && errors.nombre) { %>
                     <span style="color: red;"><%= errors.nombre.msg %> </span>
                 <% } %>
                 <% if (locals.errors && errors.apellido) { %>
                     <span style="color: red; float: right;"><%= errors.apellido.msg %> </span>
                 <% } %>
-                <input type="email" name="email" placeholder="Correo Electronico" value="<%= locals.oldData ? oldData.email : null %>">
+                <input id="email" type="email" name="email" placeholder="Correo Electronico" value="<%= locals.oldData ? oldData.email : null %>">
+                <span id="emailFeedback"></span>
                 <% if (locals.errors && errors.email) { %>
                     <span style="color: red;"><%= errors.email.msg %> </span>
                 <% } %>
-                <input type="text" name="localidad" placeholder="Localidad" value="<%= locals.oldData ? oldData.localidad : null %>">
+                <input id="localidad" type="text" name="localidad" placeholder="Localidad" value="<%= locals.oldData ? oldData.localidad : null %>">
+                <span id="localidadFeedback"></span>
                 <% if (locals.errors && errors.localidad) { %>
                     <span style="color: red;"><%= errors.localidad.msg %> </span>
                 <% } %>
-                <input type="text" name="direccion" placeholder="Calle" value="<%= locals.oldData ? oldData.direccion : null %>">
+                <input id="direccion" type="text" name="direccion" placeholder="Calle" value="<%= locals.oldData ? oldData.direccion : null %>">
+                <span id="direccionFeedback"></span>
                 <% if (locals.errors && errors.direccion) { %>
                     <span style="color: red;"><%= errors.direccion.msg %> </span>
                 <% } %>
-                <input type="number" name="numero" placeholder="Numero" value="<%= locals.oldData ? oldData.numero : null %>">
+                <input id="numero" type="number" name="numero" placeholder="Numero" value="<%= locals.oldData ? oldData.numero : null %>">
+                <span id="numeroFeedback"></span>
                 <% if (locals.errors && errors.numero) { %>
                     <span style="color: red;"><%= errors.numero.msg %> </span>
                 <% } %>
-                <input type="password" name="password" placeholder="Contraseña" >
+                <input id="password" type="password" name="password" placeholder="Contraseña" >
+                <span id="passwordFeedback"></span>
                 <% if (locals.errors && errors.password) { %>
                     <span style="color: red;"><%= errors.password.msg %> </span>
                 <% } %>
-                <input type="password" name="password2" placeholder="Repetir Contraseña" >
+                <input id="repassword" type="password" name="password2" placeholder="Repetir Contraseña" >
+                <span id="repasswordFeedback"></span>
                 <% if (locals.errors && errors.password2) { %>
                     <span style="color: red;"><%= errors.password2.msg %> </span>
                 <% } %>
@@ -67,5 +75,6 @@
             </form>
         </div>
     </main>
+    <script src="/js/register.js"></script>
 </body>
 </html>

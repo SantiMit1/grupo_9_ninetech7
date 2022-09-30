@@ -13,7 +13,7 @@ module.exports = [
             return true;
         }
 
-        const extentions = [".png", ".jpeg", ".jpg"];
+        const extentions = [".png", ".jpeg", ".jpg", ".gif"];
         const imageExtention = path.extname(req.file.originalname);
 
         if(extentions.indexOf(imageExtention) == -1) {
