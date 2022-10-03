@@ -127,7 +127,7 @@ let controller = {
                     req.session.userLogged = userToLogIn;
 
                     if (req.body.remember) {
-                        res.cookie("token", userToLogIn.token, { maxAge: 1000 * 60 * 60 * 24 });
+                        res.cookie("token", userToLogIn.token, { maxAge: 1000 * 60 * 60 * 24 * 30});
                     }
 
                     res.redirect("/users/profile");

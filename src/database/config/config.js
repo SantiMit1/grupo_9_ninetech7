@@ -4,7 +4,7 @@ module.exports = {
   "development": {
     "username": "root",
     "password": null,
-    "database": "ninetech",
+    "database": "y4xhe4o8w0311ozz",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
