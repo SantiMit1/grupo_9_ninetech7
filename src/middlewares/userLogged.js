@@ -3,13 +3,15 @@ const db = require("../database/models")
 async function userLogged(req, res, next) {
     try {
         res.locals.isLogged = false;
-
-        const userLogged = await db.user.findOne({
-            where: {
-                token: req.cookies.token || " "
-            },
-            include: ["domicilio"]
-        })
+        let userLogged
+        if(req.cookies.token) {
+            userLogged = await db.user.findOne({
+                where: {
+                    token: req.cookies.token
+                },
+                include: ["domicilio"]
+            })
+        }
         
         if(userLogged) {
             req.session.userLogged = userLogged;
