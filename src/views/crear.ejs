@@ -11,7 +11,7 @@
             <div class="contain-form">
 
                     
-                <form class="form-create" action="/productos/crear" method="POST" enctype="multipart/form-data">
+                <form id="formulario" class="form-create" action="/productos/crear" method="POST" enctype="multipart/form-data">
                     <div class="form-tittle">
                         <h2 class="tittle">Crear Producto </h2>
                     </div>
@@ -19,14 +19,16 @@
                         
                     <div class="form-div">
                         <label class="createLabel" for="nombre">Nombre del producto </label>
-                        <input type="text" name="name" id="nombre" placeholder="Ej: Mouse Logitech G Pro" value="<%= locals.oldData && oldData.name ? oldData.name : null %>" required>
+                        <input type="text" name="name" id="nombre" placeholder="Ej: Mouse Logitech G Pro" value="<%= locals.oldData && oldData.name ? oldData.name : null %>" >
+                        <span id="nombreFeedback"></span>
                         <% if (locals.errors && errors.name) { %>
                             <p style="color: red;"><%= errors.name.msg %></p>
                         <% } %>
                     </div>
                     <div class="form-div" id="descripcion">
-                        <label class="createLabel" for="descripcion" id="descripcion">Descripcion </label>
-                        <textarea style="resize: none;" name="description" id="" cols="20" rows="5" required><%= locals.oldData && oldData.description ? oldData.description : null %></textarea>
+                        <label class="createLabel" for="descripcion" id="">Descripcion </label>
+                        <textarea style="resize: none;" name="description" id="description" cols="20" rows="5" ><%= locals.oldData && oldData.description ? oldData.description : null %></textarea>
+                        <span id="descriptionFeedback"></span>
                         <% if (locals.errors && errors.description) { %>
                             <p style="color: red;"><%= errors.description.msg %></p>
                         <% } %>
@@ -40,14 +42,15 @@
                     </div>
                     <div class="form-div">
                         <label class="createLabel" for="">Precio </label>
-                        <input type="number"  name="price" id="precio" placeholder="Ej: 20000" value="<%= locals.oldData && oldData.price ? oldData.price : null %>" required>
+                        <input type="number"  name="price" id="precio" placeholder="Ej: 20000" value="<%= locals.oldData && oldData.price ? oldData.price : null %>" >
+                        <span id="precioFeedback"></span>
                         <% if (locals.errors && errors.price) { %>
                             <p style="color: red;"><%= errors.price.msg %></p>
                         <% } %>
                     </div>
                     
                     <div class="form-div" >
-                        <label class="createLabel" for="enOferta">En oferta</label>
+                        <label class="createLabel" for="check">En oferta</label>
                         <div class="off">
                             <input class="check" type="checkbox" name="enOferta" id="check" value=1>
                             <label class="lbl" for="check"></label>
@@ -58,18 +61,20 @@
                     </div>
 
                     <div class="form-div" id="descuento">
-                        <label class="createLabel" class="createLabel" for="" >Descuento </label>
-                        <input type="number" name="discount" id="" placeholder="25" min="1" max="100" value="<%= locals.oldData && oldData.discount ? oldData.discount : null %>">
+                        <label class="createLabel" class="createLabel" for="descuentoInput" >Descuento </label>
+                        <input type="number" name="discount" id="descuentoInput" placeholder="25" min="1" max="100" value="<%= locals.oldData && oldData.discount ? oldData.discount : null %>">
+                        <span id="descuentoFeedback"></span>
                     </div>
                     
                     <div class="form-div" id="categoria">
-                        <label class="createLabel" for="">Categoria</label>
-                        <select name="category" id="" class="createLabel" required>
+                        <label class="createLabel" for="categoriaInput">Categoria</label>
+                        <select name="category" id="categoriaInput" class="createLabel" >
                             <option value="">Selecciona una categoria</option>
                             <option <%= locals.oldData && oldData.category == 3 ? "selected" : null %> value=3>Mouse y teclados</option>
                             <option <%= locals.oldData && oldData.category == 2 ? "selected" : null %> value=2>Audio y video</option>
                             <option <%= locals.oldData && oldData.category == 1 ? "selected" : null %> value=1>Hardware</option>  
                         </select>
+                        <span id="categoriaFeedback"></span>
                         <% if (locals.errors && errors.category) { %>
                             <p style="color: red;"><%= errors.category.msg %></p>
                         <% } %>
@@ -77,12 +82,13 @@
 
                     <div class="form-div" id="tipo">
                         <label for="" class="createLabel">Tipo de producto</label>
-                        <select name="type" id="type" class="createLabel" required>
+                        <select name="type" id="type" class="createLabel" >
                             <option value="">Seleccione un tipo de producto</option>
                             <% tipos.forEach(tipo => { %>
                                 <option <%= locals.oldData && oldData.type == tipo.id ? "selected" : null %> value="<%= tipo.id %>"><%= tipo.name %> </option>
                             <% }) %>
                         </select>
+                        <span id="typeFeedback"></span>
                         <% if (locals.errors && errors.type) { %>
                             <p style="color: red;"><%= errors.type.msg %></p>
                         <% } %>
@@ -90,12 +96,13 @@
 
                     <div class="form-div" id="marca">
                         <label for="" class="createLabel">Marca</label>
-                        <select name="brand" id="brand" class="createLabel" required>
+                        <select name="brand" id="brand" class="createLabel" >
                             <option value="">Seleccione una marca</option>
                             <% marcas.forEach(marca => { %>
                                 <option <%= locals.oldData && oldData.brand == marca.id ? "selected" : null %> value="<%= marca.id %>"><%= marca.name %> </option>
                             <% }) %>
                         </select>
+                        <span id="brandFeedback"></span>
                         <% if (locals.errors && errors.brand) { %>
                             <p style="color: red;"><%= errors.brand.msg %></p>
                         <% } %>
@@ -114,5 +121,6 @@
     <%- include("./partials/footer.ejs") %> 
     <script src="/js/burger.js"></script>
     <script src="/js/check.js"></script>
+    <script src="/js/products.js"></script>
 </body>
 </html>
