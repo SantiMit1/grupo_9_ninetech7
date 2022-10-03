@@ -1,5 +1,6 @@
 const { body } = require("express-validator");
 const path = require("path");
+const fs = require("fs");
 
 module.exports = [
     body("name").notEmpty().withMessage("El producto debe tener un nombre").bail()
@@ -17,6 +18,7 @@ module.exports = [
         const imageExtention = path.extname(req.file.originalname);
 
         if(extentions.indexOf(imageExtention) == -1) {
+            fs.unlinkSync(path.resolve(__dirname, "../../public/img/Productos/", req.file.filename));
             throw new Error("Archivo invalido, solo se permiten los siguientes tipos de archivos: " + extentions.join(", "));
         }
 
