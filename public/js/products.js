@@ -7,6 +7,7 @@ window.addEventListener("load", function() {
     let campoCategoria = document.querySelector("#categoriaInput");
     let campoTipo = document.querySelector("#type");
     let campoMarca = document.querySelector("#brand");
+    let campoImagen = document.querySelector("#fileProduct")
 
     function nombreValido() {
         let nombreFeedback = document.querySelector("#nombreFeedback")
@@ -137,6 +138,31 @@ window.addEventListener("load", function() {
         marcaValida()
     })
 
+    function imagenValida() {
+        let imagenFeedback = document.querySelector("#imagenFeedback")
+        let extensionesValidas = ["jpg", "jpeg", "png", "gif"]
+        if (!campoImagen.value) {
+            imagenFeedback.innerHTML = ""
+            imagenFeedback.classList.remove("is-invalid")
+            return true;
+        }
+
+        let extension = campoImagen.value.split(".").pop()
+        if (extensionesValidas.indexOf(extension) != -1) {
+            imagenFeedback.innerHTML = ""
+            imagenFeedback.classList.remove("is-invalid")
+            return true;
+        } else {
+            imagenFeedback.innerHTML = "Archivo invalido, las extensiones permitidas son: " + extensionesValidas.join(", ")
+            imagenFeedback.classList.add("is-invalid")
+            return false;
+        }
+    }
+
+    campoImagen.addEventListener("change", function() {
+        imagenValida()
+    })
+
     let formulario = document.querySelector("form#formulario")
 
     formulario.addEventListener("submit", function(e) {
@@ -148,7 +174,8 @@ window.addEventListener("load", function() {
         descuentoValido() &&
         categoriaValida() &&
         tipoValido() &&
-        marcaValida()) {
+        marcaValida() &&
+        imagenValida()) {
             formulario.submit()
         }
     })

@@ -67,7 +67,8 @@
                     <span style="color: red;"><%= errors.password2.msg %> </span>
                 <% } %>
                 <label for="profilePic" class="register-form">Imagen de perfil</label>
-                <input type="file" name="profilePic" id="profilePic"  accept=".png, .jpg, .jpeg">
+                <input type="file" name="profilePic" id="profilePic"  accept=".png, .jpg, .jpeg, .gif">
+                <span id="imagenFeedback"></span>
                 <% if (locals.errors && errors.profilePic) { %>
                     <span style="color: red;"><%= errors.profilePic.msg %> </span>
                 <% } %>

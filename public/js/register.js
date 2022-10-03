@@ -171,6 +171,32 @@ window.addEventListener("load", function() {
         recontraseñaValida()
     })
 
+    //imagen
+    let profilePic = document.querySelector("#profilePic")
+    function imagenValida() {
+        let imagenFeedback = document.querySelector("#imagenFeedback")
+        let extensionesValidas = ["jpg", "jpeg", "png", "gif"]
+        if (!profilePic.value) {
+            imagenFeedback.innerHTML = ""
+            imagenFeedback.classList.remove("is-invalid")
+            return true;
+        }
+
+        let extension = profilePic.value.split(".").pop()
+        if (extensionesValidas.indexOf(extension) != -1) {
+            imagenFeedback.innerHTML = ""
+            imagenFeedback.classList.remove("is-invalid")
+            return true;
+        } else {
+            imagenFeedback.innerHTML = "Archivo invalido, las extensiones permitidas son: " + extensionesValidas.join(", ")
+            imagenFeedback.classList.add("is-invalid")
+            return false;
+        }
+    }
+
+    profilePic.addEventListener("change", function() {
+        imagenValida()
+    })
 
     //envio de formulario
     let formulario = document.querySelector("form")
@@ -183,7 +209,8 @@ window.addEventListener("load", function() {
         direccionValida() &&
         numeroValido() &&
         contraseñaValida() &&
-        recontraseñaValida()) {
+        recontraseñaValida() && 
+        imagenValida()) {
             formulario.submit()
         }
     })

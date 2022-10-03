@@ -1,12 +1,13 @@
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
     const campoLocalidad = document.querySelector("#localidad")
     const campoDireccion = document.querySelector("#direccion")
     const campoNumero = document.querySelector("#numero")
     const formulario = document.querySelector("form")
+    const profilePic = this.document.querySelector("#profilePic")
 
     function localidadValida() {
         let localidadFeedback = document.querySelector("#localidadFeedback")
-        if(campoLocalidad.value.length < 1) {
+        if (campoLocalidad.value.length < 1) {
             localidadFeedback.innerHTML = "Este campo no puede estar vacio"
             return false;
         } else {
@@ -15,13 +16,13 @@ window.addEventListener("load", function() {
         }
     }
 
-    campoLocalidad.addEventListener("input", function() {
+    campoLocalidad.addEventListener("input", function () {
         localidadValida()
     })
 
     function direccionValida() {
         let direccionFeedback = document.querySelector("#direccionFeedback")
-        if(campoDireccion.value.length < 1) {
+        if (campoDireccion.value.length < 1) {
             direccionFeedback.innerHTML = "Este campo no puede estar vacio"
             return false;
         } else {
@@ -30,13 +31,13 @@ window.addEventListener("load", function() {
         }
     }
 
-    campoDireccion.addEventListener("input", function() {
+    campoDireccion.addEventListener("input", function () {
         direccionValida()
     })
 
     function numeroValido() {
         let numeroFeedback = document.querySelector("#numeroFeedback")
-        if(campoNumero.value.length < 1) {
+        if (campoNumero.value.length < 1) {
             numeroFeedback.innerHTML = "Este campo no puede estar vacio"
             return false;
         } else {
@@ -45,13 +46,38 @@ window.addEventListener("load", function() {
         }
     }
 
-    campoNumero.addEventListener("input", function() {
+    campoNumero.addEventListener("input", function () {
         numeroValido()
     })
 
-    formulario.addEventListener("submit", function(e) {
+    function imagenValida() {
+        let imagenFeedback = document.querySelector("#imagenFeedback")
+        let extensionesValidas = ["jpg", "jpeg", "png", "gif"]
+        if (!profilePic.value) {
+            imagenFeedback.innerHTML = ""
+            imagenFeedback.classList.remove("is-invalid")
+            return true;
+        }
+
+        let extension = profilePic.value.split(".").pop()
+        if (extensionesValidas.indexOf(extension) != -1) {
+            imagenFeedback.innerHTML = ""
+            imagenFeedback.classList.remove("is-invalid")
+            return true;
+        } else {
+            imagenFeedback.innerHTML = "Archivo invalido, las extensiones permitidas son: " + extensionesValidas.join(", ")
+            imagenFeedback.classList.add("is-invalid")
+            return false;
+        }
+    }
+
+    profilePic.addEventListener("change", function() {
+        imagenValida()
+    })
+
+    formulario.addEventListener("submit", function (e) {
         e.preventDefault()
-        if(direccionValida() && localidadValida() && numeroValido()) {
+        if (direccionValida() && localidadValida() && numeroValido() && imagenValida()) {
             formulario.submit()
         }
     })

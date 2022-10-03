@@ -36,6 +36,7 @@
                     <div class="form-div">
                         <label class="createLabel" for="">Imagen </label>
                         <input type="file" name="image" id="fileProduct" accept=".png, .jpg, .jpeg">
+                        <span id="imagenFeedback"></span>
                         <% if (locals.errors && errors.image) { %>
                             <p style="color: red;"><%= errors.image.msg %></p>
                         <% } %>
