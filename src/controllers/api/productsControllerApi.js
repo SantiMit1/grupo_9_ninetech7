@@ -6,14 +6,17 @@ let controller = {
         try {
             const productos = await db.product.findAll({
                 attributes: ["id", "name", "description", "image"],
-                include: ["type", "brand"]
+                include: ["type", "brand"],
+                limit: req.query.pagina ? 3 : 100000000,
+                offset: req.query.pagina ? (req.query.pagina - 1) * 3 : 0
             })
+
             productos.forEach(producto => {
                 producto.detalle = `${req.headers.host}/productos/detalle/${producto.id}`
                 producto.image = `${req.headers.host}/img/Productos/${producto.image}`
             })
 
-            const count = productos.length
+            const count = await db.product.count()
 
             const countByCategory = {
                 "Hardware": await db.product.count({ where: { category_id: 1 } }),
@@ -36,7 +39,9 @@ let controller = {
     detalles: async (req, res) => {
         try {
             const { id } = req.params
-            const producto = await db.product.findByPk(id)
+            const producto = await db.product.findByPk(id, {
+                include: ["brand", "type"]
+            })
             producto.image = `${req.headers.host}/img/Productos/${producto.image}`
 
             let respuesta = {
