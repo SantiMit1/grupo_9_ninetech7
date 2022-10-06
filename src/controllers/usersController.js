@@ -113,6 +113,15 @@ let controller = {
 
     processLogin: async (req, res) => {
         try {
+            const errores = validationResult(req);
+
+            if(!errores.isEmpty()) {
+                return res.render("login", {
+                    errors: errores.mapped(),
+                    oldData: req.body
+                })
+            }
+
             let userToLogIn = await db.user.findOne({
                 where: {
                     email: req.body.email

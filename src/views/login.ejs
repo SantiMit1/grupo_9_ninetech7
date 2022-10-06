@@ -25,7 +25,15 @@
             </div>
             <form action="/users/login" method="POST">
                 <input type="email" name="email" id="email" placeholder="Correo Electronico" value="<%= locals.oldData && oldData.email ? oldData.email : "" %> ">
+                <span id="emailFeedback"></span>
+                <% if (locals.errors && errors.email) { %>
+                    <h3 style="color: red;"><%= errors.email.msg %></h3>
+                <% } %>
                 <input type="password" name="password" id="password" placeholder="Contraseña">
+                <span id="passwordFeedback"></span>
+                <% if (locals.errors && errors.password) { %>
+                    <h3 style="color: red;"><%= errors.password.msg %></h3>
+                <% } %>
                 <input type="submit" value="Iniciar Sesión" class="submit">
                 <label class="remember">
                     <input type="checkbox" id="checkbox" name="remember" <%= locals.oldData && oldData.remember ? 'checked' : "" %> >
@@ -33,10 +41,8 @@
                 </label>
             </form>
             <a href="#" class="forgot">Olvidé mi contraseña</a>
-            <% if (locals.errors && errors.password) { %>
-                <h3 style="color: red;"><%= errors.password.msg %></h3>
-            <% } %>
         </div>
     </main>
+    <script src="/js/login.js"></script>
 </body>
 </html>
