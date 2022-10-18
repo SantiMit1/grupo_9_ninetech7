@@ -74,7 +74,7 @@ let controller = {
                 ]
             });
 
-            const todosLosProductos = await db.product.findAll()
+            const todosLosProductos = await db.product.count()
 
             res.render("productos", {
                 productos: productosPaginados,

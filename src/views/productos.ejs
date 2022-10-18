@@ -20,7 +20,7 @@
                 <% if (pagina > 1) { %>
                     <a href="/productos/lista/<%= pagina - 1 %>"><i class="fa-solid fa-arrow-left"></i></a>
                 <% } %>
-                <% if (pagina < todosLosProductos.length / 6) { %>
+                <% if (pagina < todosLosProductos / 6) { %>
                     <a href="/productos/lista/<%= pagina + 1 %>"><i class="fa-solid fa-arrow-right"></i></a>
                 <% } %>
             <% } %>
