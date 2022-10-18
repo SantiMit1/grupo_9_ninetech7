@@ -17,6 +17,7 @@ let controller = {
                 data.push({
                     producto,
                     detalle: `${req.headers.host}/productos/detalles/${producto.id}`,
+                    detalleApi: `${req.headers.host}/api/productos/detalles/${producto.id}`,
                 })
             })
 

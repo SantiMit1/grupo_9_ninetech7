@@ -13,7 +13,7 @@ let controller = {
             users.forEach(user => {
                 data.push({
                     user,
-                    detalle: `${req.headers.host}/users/detalle/${user.id}`
+                    detalle: `${req.headers.host}/api/users/${user.id}`
                 })
             })
 
