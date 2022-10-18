@@ -11,9 +11,13 @@ let controller = {
                 offset: req.query.pagina ? (req.query.pagina - 1) * 3 : 0
             })
 
+            let data = []
             productos.forEach(producto => {
-                producto.detalle = `${req.headers.host}/productos/detalle/${producto.id}`
                 producto.image = `${req.headers.host}/img/Productos/${producto.image}`
+                data.push({
+                    producto,
+                    detalle: `${req.headers.host}/productos/detalles/${producto.id}`,
+                })
             })
 
             const count = await db.product.count()
@@ -27,7 +31,7 @@ let controller = {
             const respuesta = {
                 count,
                 countByCategory,
-                productos
+                data
             }
 
             res.json(respuesta)

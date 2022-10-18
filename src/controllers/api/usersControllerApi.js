@@ -8,13 +8,18 @@ let controller = {
                 attributes: ["id", "nombre", "apellido", "email"]
             })
 
+            let data = []
+
             users.forEach(user => {
-                user.detalle =  `${req.headers.host}/users/detalle/${user.id}`
+                data.push({
+                    user,
+                    detalle: `${req.headers.host}/users/detalle/${user.id}`
+                })
             })
 
             const respuesta = {
                 count: users.length,
-                users
+                data
             }
 
             res.json(respuesta)
@@ -28,7 +33,7 @@ let controller = {
             const { id } = req.params
             const user = await  db.user.findByPk(id, {
                 include: ["domicilio"],
-                attributes: {exclude: ["password", "token"]}
+                attributes: {exclude: ["password", "token", "role_id"]}
             })
             user.profilePic = `${req.headers.host}/img/Users/${user.profilePic}`
 
