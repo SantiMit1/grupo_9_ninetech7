@@ -52,6 +52,80 @@ let controller = {
         } catch (e) {
             res.json(e)
         }
+    },
+
+    guardar: async (req, res) => {
+        try {
+            let producto = await db.product.create({
+                name: req.body.name,
+                description: req.body.description,
+                price: req.body.price,
+                enOferta: req.body.enOferta,
+                discount: req.body.discount,
+                image: req.file ? req.file.filename : "default.png",
+                category_id: req.body.category,
+                type_id: req.body.type,
+                brand_id: req.body.brand
+            })
+
+            let respuesta = {
+                producto
+            }
+            res.json(respuesta)
+        } catch (e) {
+            res.json(e)
+        }
+    },
+
+    actualizar: async (req, res) => {
+        try {
+            let id = Number(req.params.id);
+            const oldImage = await db.product.findByPk(id).image;
+            const productoActulizado = await db.product.update({
+                name: req.body.name,
+                description: req.body.description,
+                price: req.body.price,
+                enOferta: req.body.enOferta ? req.body.enOferta : null,
+                discount: req.body.enOferta ? req.body.discount : null,
+                image: req.file ? req.file.filename : oldImage,
+                category_id: req.body.category,
+                type_id: req.body.type,
+                brand_id: req.body.brand
+            }, {
+                where: {
+                    id: id
+                }
+            })
+
+            let respuesta = {
+                productoActulizado
+            }
+
+            res.json(productoActulizado);
+        } catch (e) {
+            res.json(e)
+        }
+    },
+
+    borrar: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const productoEliminado = await db.product.destroy({
+                where: {
+                    id: id
+                }
+            }, {
+                force: true
+            })
+            
+            let respuesta = {
+                productoEliminado
+            }
+
+            res.json(respuesta)
+        } catch (e) {
+            res.json(e)
+        }
     }
 
 }
