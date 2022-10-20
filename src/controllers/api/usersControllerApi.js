@@ -41,8 +41,27 @@ let controller = {
         } catch (e) {
             res.json(e)
         }
-    }
+    },
 
+    ultimoUser: async (req, res) => {
+        try {
+            const user = await db.user.findOne({
+                order: [["id", "DESC"]],
+                include: ["domicilio"],
+                attributes: {exclude: ["password", "token", "role_id"]}
+            })
+
+            user.profilePic = `${req.headers.host}/img/Users/${user.profilePic}`
+
+            let respuesta = {
+                user
+            }
+
+            res.json(respuesta)
+        } catch (e) {
+            res.json(e)
+        }
+    }
 }
 
 module.exports = controller;

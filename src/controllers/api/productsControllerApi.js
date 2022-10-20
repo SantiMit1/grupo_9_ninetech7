@@ -58,6 +58,24 @@ let controller = {
             res.json(e)
         }
     },
+    
+    ultimoProducto: async (req, res) => {
+        try {
+            const producto = await db.product.findOne({
+                order: [["id", "DESC"]],
+            })
+
+            producto.image = `${req.headers.host}/img/Users/${producto.image}`
+
+            let respuesta = {
+                producto
+            }
+            
+            res.json(respuesta)
+        } catch (e) {
+            res.json(e)
+        }
+    },
 
     guardar: async (req, res) => {
         try {
