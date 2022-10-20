@@ -65,7 +65,7 @@ let controller = {
                 order: [["id", "DESC"]],
             })
 
-            producto.image = `${req.headers.host}/img/Users/${producto.image}`
+            producto.image = `${req.headers.host}/img/Productos/${producto.image}`
 
             let respuesta = {
                 producto
