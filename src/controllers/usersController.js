@@ -87,7 +87,7 @@ let controller = {
                 });
             }
 
-            await db.user.create({
+            const user = await db.user.create({
                 nombre: req.body.nombre,
                 apellido: req.body.apellido,
                 email: req.body.email,
