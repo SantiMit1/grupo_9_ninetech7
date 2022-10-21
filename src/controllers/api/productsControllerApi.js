@@ -5,7 +5,7 @@ let controller = {
     lista: async (req, res) => {
         try {
             const productos = await db.product.findAll({
-                attributes: ["id", "name", "description", "image"],
+                attributes: ["id", "name", "description", "image", "price"],
                 include: ["type", "brand"],
                 limit: req.query.pagina ? 3 : 100000000,
                 offset: req.query.pagina ? (req.query.pagina - 1) * 3 : 0
@@ -61,14 +61,16 @@ let controller = {
     
     ultimoProducto: async (req, res) => {
         try {
-            const producto = await db.product.findOne({
+            let producto = await db.product.findOne({
                 order: [["id", "DESC"]],
             })
 
             producto.image = `${req.headers.host}/img/Productos/${producto.image}`
+            
 
             let respuesta = {
-                producto
+                producto,
+                detalle: `${req.headers.host}/productos/detalles/${producto.id}`
             }
             
             res.json(respuesta)
