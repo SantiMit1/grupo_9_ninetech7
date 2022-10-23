@@ -58,7 +58,7 @@ let controller = {
             res.json(e)
         }
     },
-    
+
     ultimoProducto: async (req, res) => {
         try {
             let producto = await db.product.findOne({
@@ -66,13 +66,13 @@ let controller = {
             })
 
             producto.image = `${req.headers.host}/img/Productos/${producto.image}`
-            
+
 
             let respuesta = {
                 producto,
                 detalle: `${req.headers.host}/productos/detalles/${producto.id}`
             }
-            
+
             res.json(respuesta)
         } catch (e) {
             res.json(e)
@@ -142,7 +142,7 @@ let controller = {
             }, {
                 force: true
             })
-            
+
             let respuesta = {
                 productoEliminado
             }
@@ -151,7 +151,25 @@ let controller = {
         } catch (e) {
             res.json(e)
         }
-    }
+    },
+
+    marcas: async (req, res) => {
+        try {
+            const marcas = await db.brand.findAll()
+            res.json(marcas)
+        } catch (e) {
+            res.json(e)
+        }
+    },
+
+    tipos: async (req, res) => {
+        try {
+            const tipos = await db.type.findAll()
+            res.json(tipos)
+        } catch (e) {
+            res.json(e)
+        }
+    },
 
 }
 
