@@ -24,9 +24,14 @@ let controller = {
             const count = await db.product.count()
 
             const countByCategory = {
-                "Hardware": await db.product.count({ where: { category_id: 1 } }),
-                "Audio y video": await db.product.count({ where: { category_id: 2 } }),
-                "Mouse y teclados": await db.product.count({ where: { category_id: 3 } })
+                "CPU": await db.product.count({ where: { type_id: 1 } }),
+                "GPU": await db.product.count({ where: { type_id: 2 } }),
+                "FUENTES": await db.product.count({ where: { type_id: 3 } }),
+                "RAM": await db.product.count({ where: { type_id: 4 } }),
+                "HDD": await db.product.count({ where: { type_id: 5 } }),
+                "SSD": await db.product.count({ where: { type_id: 6 } }),
+                "MOTHERBOARDS": await db.product.count({ where: { type_id: 7 } }),
+                "PERIFERICOS": await db.product.count({ where: { type_id: 8 } }),
             }
 
             const respuesta = {
