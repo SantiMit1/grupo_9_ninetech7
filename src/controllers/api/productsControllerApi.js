@@ -180,16 +180,31 @@ let controller = {
     busqueda: async (req, res) => {
         try {
             const busqueda = req.query.q.toUpperCase();
-            const resultados = await db.product.findAll({
+            const productos = await db.product.findAll({
+                attributes: ["id", "name", "description", "image", "price"],
+                include: ["type", "brand"],
                 where: {
                     name: {
                         [Op.like]: `%${busqueda}%`
                     }
                 }
             })
-            res.json({
-                productos: resultados,
+
+            let data = []
+            productos.forEach(producto => {
+                producto.image = `${req.headers.host}/img/Productos/${producto.image}`
+                data.push({
+                    producto,
+                    detalle: `${req.headers.host}/productos/detalles/${producto.id}`,
+                    detalleApi: `${req.headers.host}/api/productos/detalles/${producto.id}`,
+                })
             })
+
+            let respuesta = {
+                data
+            }
+
+            res.json(respuesta)
         }
         catch (e) {
             res.json(e)
