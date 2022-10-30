@@ -1,4 +1,5 @@
 const db = require("../../database/models");
+const { Op } = require("sequelize")
 
 let controller = {
 
@@ -172,6 +173,25 @@ let controller = {
             const tipos = await db.type.findAll()
             res.json(tipos)
         } catch (e) {
+            res.json(e)
+        }
+    },
+
+    busqueda: async (req, res) => {
+        try {
+            const busqueda = req.query.q.toUpperCase();
+            const resultados = await db.product.findAll({
+                where: {
+                    name: {
+                        [Op.like]: `%${busqueda}%`
+                    }
+                }
+            })
+            res.json({
+                productos: resultados,
+            })
+        }
+        catch (e) {
             res.json(e)
         }
     },
