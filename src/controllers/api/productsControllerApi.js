@@ -128,10 +128,6 @@ let controller = {
                 }
             })
 
-            let respuesta = {
-                productoActulizado
-            }
-
             res.json(productoActulizado);
         } catch (e) {
             res.json(e)
