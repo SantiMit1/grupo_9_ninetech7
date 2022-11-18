@@ -120,7 +120,7 @@ let controller = {
                 description: req.body.description,
                 price: req.body.price,
                 enOferta: req.body.enOferta,
-                discount: req.body.discount,
+                discount: Number(req.body.discount),
                 image: req.file ? req.file.filename : "default.png",
                 category_id: req.body.category,
                 type_id: req.body.type,
