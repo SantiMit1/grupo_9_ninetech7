@@ -14,12 +14,7 @@ Ecommerce destinado a la venta de hardware y perifericos de computadora
 
 **FrontEnd:** HTML, CSS, Javascript
 
-**BackEnd:** Node, Express, EJS
-
-
-## Demo
-
-http://ninetech.herokuapp.com
+**BackEnd:** Node, Express
 
 
 ## Ejecutar localmente
